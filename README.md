@@ -8,6 +8,9 @@
 
 ## 2 - Baixar e instalar o Oracle
     Criar usuário com permissões para leitura e escrita e criação de tabela
+
+    Configurar  tnsnames.ora
+            Check your tnsnames.ora to ensure that the TNS service name points to the correct server and instance name.  If you specify an incorrect tnsnames.ora service name, then the user ID and password may not exist in that database.
     
 
 ## 3 - Instalar os pacotes com npm install

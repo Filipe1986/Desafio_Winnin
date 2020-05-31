@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var database = require('./../config/database');
+var moment = require('moment'); 
 
 
 router.get('/postagens', async  function(req, res, next) {
@@ -11,7 +12,17 @@ router.get('/postagens', async  function(req, res, next) {
       var usuarios = await  database.simpleExecute(sql);
     }else if(req.query.ordem == "comentarios"  && req.query.dataInicial  && req.query.dataFinal){
       sql = 'select * from postagem where criacao >= \''+ req.query.dataInicial +'\' and criacao <= \''+ req.query.dataFinal +'\' order by NUMBER_COMENTARIOS desc'
-      var usuarios = await  database.simpleExecute(sql);
+      var result = await  database.simpleExecute(sql);
+      
+      usuarios = result.rows.map(el =>({
+          TITULO: el.TITULO,
+          AUTOR : el.AUTOR,
+          CRIACAO : moment(el.CRIACAO).format("DD/MM/YY HH:MM:ss") ,
+          NUMBER_UPS: el.NUMBER_UPS,
+          NUMBER_COMENTARIOS: el.NUMBER_COMENTARIOS,
+          
+      }))
+
     }else{
       res.status(400)
       res.json()
@@ -23,7 +34,7 @@ router.get('/postagens', async  function(req, res, next) {
     res.json()
   }
 
-  res.json(usuarios.rows)
+  res.json(usuarios)
 });
 
 router.get('/usuarios', async function(req, res, next) {
