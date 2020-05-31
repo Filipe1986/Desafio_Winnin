@@ -12,7 +12,7 @@ function requisicaoPostagem(after, data) {
             obj = response.data.data.children.map(el =>({
                 TITULO: el.data.title,
                 AUTOR : (el.data.secure_media && el.data.secure_media.oembed &&
-                el.data.secure_media.oembed.author_name) ? el.data.secure_media.oembed.author_name : 'Y' ,
+                el.data.secure_media.oembed.author_name) ? el.data.secure_media.oembed.author_name : '' ,
                 CRIACAO : moment.unix(el.data.created).format(DATA_FORMAT) ,
                 NUMBER_UPS: el.data.ups,
                 NUMBER_COMENTARIOS: el.data.num_comments,
@@ -26,7 +26,7 @@ function requisicaoPostagem(after, data) {
         obj = response.data.data.children.map(el =>({
                 TITULO: el.data.title,
                 AUTOR : (el.data.secure_media && el.data.secure_media.oembed &&
-                el.data.secure_media.oembed.author_name) ? el.data.secure_media.oembed.author_name : 'X' ,
+                el.data.secure_media.oembed.author_name) ? el.data.secure_media.oembed.author_name : '' ,
                 CRIACAO :  moment.unix(el.data.created).format(DATA_FORMAT) ,
                 NUMBER_UPS: el.data.ups,
                 NUMBER_COMENTARIOS: el.data.num_comments

@@ -13,11 +13,13 @@ var app = express();
 var date = new Date();
 cron.schedule(date.getMinutes()+1 + " " + date.getHours() +" * * *", async () => {
   console.log("Execução da Atividade Agendada")
-  var result = await serv.requisicaoPostagem('t3_g0s6kc', [])
+  var result = await serv.requisicaoPostagem('', [])
   const sqlQuery = `INSERT INTO POSTAGEM (TITULO, AUTOR, CRIACAO,  NUMBER_UPS,  NUMBER_COMENTARIOS ) 
                     VALUES ( :TITULO, :AUTOR, :CRIACAO, :NUMBER_UPS, :NUMBER_COMENTARIOS)`;
 
   await database.execMany(sqlQuery, result)
+  console.log("Atividade Agendada Finalizada")
+  
   
 });
 

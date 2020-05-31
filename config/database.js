@@ -1,12 +1,38 @@
 const oracledb = require('oracledb');
 const dbConfig = require('../config/dbconfig.js');
 
-
-
+const CREATE_TABLE =
+`CREATE TABLE POSTAGEM 
+(
+  TITULO VARCHAR2(300 BYTE) 
+, AUTOR VARCHAR2(100 BYTE) 
+, CRIACAO TIMESTAMP(6) 
+, NUMBER_UPS NUMBER 
+, NUMBER_COMENTARIOS NUMBER 
+) 
+`
 
 async function initialize() {
-    console.log('Initializing database module ' + new Date("dd/MM/YY HH:mm"));
-    const pool = await oracledb.createPool(dbConfig);
+  let conn;
+    try {
+      console.log('Initializing database module ');
+      const pool = await oracledb.createPool(dbConfig);
+
+      conn = await oracledb.getConnection();
+      const result = await conn.execute("Select * from POSTAGEM");
+    }catch(err){
+      if(err.errorNum == 942){
+        try{
+          await conn.execute(CREATE_TABLE); 
+          console.log("Tabela POSTAGEM CRIADA")
+        }catch(err){
+          console.log(err)
+        }
+        
+      }else{
+        console.log(err)
+      }
+    }
 }
 initialize()
 
@@ -26,6 +52,7 @@ function simpleExecute(statement, binds = [], opts = {}) {
         bindDefs: {
           TITULO: { type: oracledb.STRING , maxSize:300},
           AUTOR: { type: oracledb.STRING , maxSize:100 },
+          CRIACAO: { type: oracledb.STRING , maxSize:100 },
           NUMBER_UPS: { type: oracledb.NUMBER },
           NUMBER_COMENTARIOS: { type: oracledb.NUMBER }
         }
@@ -35,7 +62,6 @@ function simpleExecute(statement, binds = [], opts = {}) {
    
       try {
         conn = await oracledb.getConnection();
-        console.log(statement)
         const result = await conn.execute(statement, binds, opts);
         
         resolve(result);
@@ -73,9 +99,7 @@ function execMany(statement, binds = [], opts = {}) {
  
     try {
       conn = await oracledb.getConnection();
-      
       const result = await conn.executeMany(statement, binds, opts);
-      
       resolve(result);
     } catch (err) {
       reject(err);
