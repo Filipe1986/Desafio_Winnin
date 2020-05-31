@@ -1,24 +1,47 @@
 
-# InstruĂ§Ăľes
+# Instruções
 
-1 - Instalar o node e o npm
-    node -v : v12.17.0
-    npm -v : 6.14.4
+## 1 - Instalar o node e o npm
+    Versões utilizadas:
+        node -v : v12.17.0
+        npm -v : 6.14.4
 
-2 - Instalar o Oracle
-    Criar usuário com permissões
+## 2 - Instalar o Oracle
+    Criar usuário com permissões para leitura e escrita e criação de tabela
     
 
-3 - Instalar os pacotes com npm install
+## 3 - Instalar os pacotes com npm install
+    linha de comando na pasta raíz do projeto: npm install
+
+## 4 - Configurações de banco
+### 4.1 - Alterar os valores de usuario_db, password_db e localhost/orcl de acordo com seu usuário criado no banco de dados dentro da pasta raiz_do_projeto/config/dbconfig.js
+    
+        user          : process.env.NODE_ORACLEDB_USER || "usuario_db",
+        password      : process.env.NODE_ORACLEDB_PASSWORD || 'password_db',
+        connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "localhost/orcl",,
+     
+### 4.2 - Alterar o agendamento do consumo da api do Reddit em raiz_do_projeto/app.js
+     
+        
+
+## 5 -  Rodar o projeto
+    linha de comando na raíz do projeto: npm install
+    
 
 
+Api's
 
-Uso -
-]
-Primeiro endpoint: http://localhost:3000/postagens?ordem=&&dataInicial=&&dataFinal
-    Formato de data: 'dd/dd/YY hh:mm:ss'
-Segundo endpoint : http://localhost:3000/usuarios?ordem=
-    "ups" ou "comentarios"
+Primeiro endpoint: http://localhost:3000/postagens?ordem={valoe}&&dataInicial={valor}&&dataFinal={valor}
+
+    Formato de data: 'dd/MM/YY' ou 'dd/MM/YY hh' ou 'dd/MM/YY hh:mm' ou 'dd/MM/YY hh:mm:ss'
+    
+    Exemplo: http://localhost:3000/postagens?dataInicial=20/05/20&&dataFinal=27/05/20&&ordem=ups
+    
+Segundo endpoint : http://localhost:3000/usuarios?ordem={valor_ordem}
+
+    Possíveis valor_ordem para ordem: "ups" ou "comentarios"
+    
+    Exemplo: http://localhost:3000/usuarios?ordem=ups
 
     Exemplo: http://localhost:3000/postagens?dataInicial=20-05-20T14&&dataFinal=27-05-20&&ordem=comentarios
 
