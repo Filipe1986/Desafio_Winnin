@@ -1,12 +1,12 @@
 
 # Instruções
 
-## 1 - Instalar o node e o npm
+## 1 - Baixar e instalar o node e o npm
     Versões utilizadas:
         node -v : v12.17.0
         npm -v : 6.14.4
 
-## 2 - Instalar o Oracle
+## 2 - Baixar e instalar o Oracle
     Criar usuário com permissões para leitura e escrita e criação de tabela
     
 
@@ -14,13 +14,13 @@
     linha de comando na pasta raíz do projeto: npm install
 
 ## 4 - Configurações de banco
-### 4.1 - Alterar os valores de usuario_db, password_db e localhost/orcl de acordo com seu usuário criado no banco de dados dentro da pasta raiz_do_projeto/config/dbconfig.js
+   ### 4.1 - Alterar os valores de usuario_db, password_db e localhost/orcl de acordo com seu usuário criado no banco de dados dentro da pasta raiz_do_projeto/config/dbconfig.js
     
         user          : process.env.NODE_ORACLEDB_USER || "usuario_db",
         password      : process.env.NODE_ORACLEDB_PASSWORD || 'password_db',
         connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "localhost/orcl",,
      
-### 4.2 - Alterar o agendamento do consumo da api do Reddit em raiz_do_projeto/app.js
+   ### 4.2 - Alterar o agendamento do consumo da api do Reddit em raiz_do_projeto/app.js
      
         
 
