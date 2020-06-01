@@ -52,7 +52,7 @@ function simpleExecute(statement, binds = [], opts = {}) {
         bindDefs: {
           TITULO: { type: oracledb.STRING , maxSize:300},
           AUTOR: { type: oracledb.STRING , maxSize:100 },
-          CRIACAO: { type: oracledb.STRING , maxSize:100 },
+          CRIACAO: { type: oracledb.NUMBER },
           NUMBER_UPS: { type: oracledb.NUMBER },
           NUMBER_COMENTARIOS: { type: oracledb.NUMBER }
         }
@@ -89,7 +89,7 @@ function execMany(statement, binds = [], opts = {}) {
       bindDefs: {
         TITULO: { type: oracledb.STRING , maxSize:300},
         AUTOR: { type: oracledb.STRING , maxSize:100 },
-        CRIACAO :{type: oracledb.STRING, maxSize:30},
+        CRIACAO :{type: oracledb.NUMBER},
         NUMBER_UPS: { type: oracledb.NUMBER },
         NUMBER_COMENTARIOS: { type: oracledb.NUMBER }
       }

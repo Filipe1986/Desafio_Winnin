@@ -6,7 +6,7 @@ var database = require('./config/database.js')
 const cron = require("node-cron");
 var serv = require("./services/services")
 
-var redditRouter = require('./routes/reddit');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -32,6 +32,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', redditRouter);
+app.use('/', api);
 
 module.exports = app;
