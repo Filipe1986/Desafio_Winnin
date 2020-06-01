@@ -7,9 +7,10 @@
         npm -v : 6.14.4
 
 ## 2 - Baixar e instalar o Oracle
-    Após baixar e instalar o oracle criar usuário com permissões
+    Após baixar e instalar o oracle 
+    e criar usuário com permissões
 
-    Configurar  tnsnames.ora
+    Configurar  tnsnames.ora caso necessário
             Check your tnsnames.ora to ensure that the TNS service name points to
              the correct server and instance name.  If you specify an incorrect 
              tnsnames.ora service name, then the user ID and password may not 
@@ -18,12 +19,12 @@
 ## 3 - Instalar os pacotes com npm install
     linha de comando na pasta raíz do projeto: npm install
 
-## 4 - Configurações de banco
+## 4 - Configurações da conexão com o banco na aplicação
    ### 4.1 - Alterar os valores de usuario_db, password_db e localhost/orcl de acordo com seu usuário criado no banco de dados dentro da pasta raiz_do_projeto/config/dbconfig.js
     
         user          : process.env.NODE_ORACLEDB_USER || "usuario_db",
         password      : process.env.NODE_ORACLEDB_PASSWORD || 'password_db',
-        connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "localhost/orcl",,
+        connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "connectString",,
      
    ### 4.2 - Alterar o agendamento do consumo da api do Reddit em raiz_do_projeto/app.js
         O Agendamento está programado para ser realizado um minuto após o programa ser iniciado
@@ -37,7 +38,7 @@
 
 Api's
 
-Primeiro endpoint: http://localhost:3000/postagens?ordem={valor}&&dataInicial={valor}&&dataFinal={valor}
+Primeiro endpoint: http://localhost:3000/postagens?dataInicial={valor}&&dataFinal={valor}&&ordem={valor}
 
     Formato de data: iso 8601
     
