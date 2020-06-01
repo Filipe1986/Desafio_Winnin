@@ -3,10 +3,14 @@ var router = express.Router();
 var database = require('../config/database');
 var moment = require('moment');
 
+const MILLISECONDS_ISO_8601 = 1000;
+const BAD_REQUEST_CODE = 400;
+const SERVER_ERROR_CODE = 500;
+
 
 router.get('/postagens', async function (req, res, next) {
-  inicial = moment(req.query.dataInicial).valueOf() / 1000;
-  final = moment(req.query.dataFinal).valueOf() / 1000;
+  inicial = moment(req.query.dataInicial).valueOf() / MILLISECONDS_ISO_8601;
+  final = moment(req.query.dataFinal).valueOf() / MILLISECONDS_ISO_8601;
   var usuarios;
 
   try {
@@ -20,7 +24,7 @@ router.get('/postagens', async function (req, res, next) {
       usuarios = result.rows.map(el => ({
         TITULO: el.TITULO,
         AUTOR: el.AUTOR,
-        CRIACAO: moment(el.CRIACAO * 1000).format(),
+        CRIACAO: moment(el.CRIACAO * MILLISECONDS_ISO_8601).format(),
         NUMBER_UPS: el.NUMBER_UPS,
         NUMBER_COMENTARIOS: el.NUMBER_COMENTARIOS
 
@@ -34,19 +38,19 @@ router.get('/postagens', async function (req, res, next) {
       usuarios = result.rows.map(el => ({
         TITULO: el.TITULO,
         AUTOR: el.AUTOR,
-        CRIACAO: moment(el.CRIACAO * 1000).format(),
+        CRIACAO: moment(el.CRIACAO * MILLISECONDS_ISO_8601).format(),
         NUMBER_UPS: el.NUMBER_UPS,
         NUMBER_COMENTARIOS: el.NUMBER_COMENTARIOS
 
       }));
     }else{
-      res.status(400)
-      res.json()
+      res.status(BAD_REQUEST_CODE);
+      res.json();
     }
 
   }catch(err) {
     console.log(err)
-    res.status(500)
+    res.status(SERVER_ERROR_CODE)
     res.json()
   }
   res.json(usuarios)
@@ -59,7 +63,7 @@ router.get('/usuarios', async function (req, res, next) {
       usuarios = result.rows.map(el => ({
         TITULO: el.TITULO,
         AUTOR: el.AUTOR,
-        CRIACAO: moment(el.CRIACAO * 1000).format(),
+        CRIACAO: moment(el.CRIACAO * MILLISECONDS_ISO_8601).format(),
         NUMBER_UPS: el.NUMBER_UPS,
         NUMBER_COMENTARIOS: el.NUMBER_COMENTARIOS
 
@@ -69,21 +73,21 @@ router.get('/usuarios', async function (req, res, next) {
       usuarios = result.rows.map(el => ({
         TITULO: el.TITULO,
         AUTOR: el.AUTOR,
-        CRIACAO: moment(el.CRIACAO * 1000).format(),
+        CRIACAO: moment(el.CRIACAO * MILLISECONDS_ISO_8601).format(),
         NUMBER_UPS: el.NUMBER_UPS,
         NUMBER_COMENTARIOS: el.NUMBER_COMENTARIOS
 
       }));
     } else {
-      res.status(400)
+      res.status(BAD_REQUEST_CODE);
     }
 
   } catch{
-    res.status(400)
-    res.json()
+    res.status(SERVER_ERROR_CODE);
+    res.json();
   }
 
-  res.json(usuarios)
+  res.json(usuarios);
 });
 
 module.exports = router;

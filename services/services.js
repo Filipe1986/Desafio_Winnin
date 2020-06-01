@@ -1,8 +1,9 @@
 const axios = require('axios').default;
 var moment = require('moment'); 
 
-const URL = `https://api.reddit.com/r/artificial/hot?limit=100`
-const DATA_FORMAT = "DD/MM/YY HH:mm:ss"
+const URL = `https://api.reddit.com/r/artificial/hot?limit=100`;
+
+
 function requisicaoPostagem(after, data) {
     
     return axios.get(URL  + (after ? '&after='+after : '')) 
@@ -16,10 +17,10 @@ function requisicaoPostagem(after, data) {
                 NUMBER_UPS: el.data.ups,
                 NUMBER_COMENTARIOS: el.data.num_comments,
                 
-            }))
-            data.push(...obj)
+            }));
+            data.push(...obj);
             
-            return data
+            return data;
         } 
         
         obj = response.data.data.children.map(el =>({
@@ -29,9 +30,9 @@ function requisicaoPostagem(after, data) {
                 NUMBER_UPS: el.data.ups,
                 NUMBER_COMENTARIOS: el.data.num_comments
                 
-            }))
-        data.push(...obj)
-        return requisicaoPostagem(response.data.data.after, data)
+        }));
+        data.push(...obj);
+        return requisicaoPostagem(response.data.data.after, data);
       })
 }
 

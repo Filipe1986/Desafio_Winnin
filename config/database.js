@@ -1,6 +1,7 @@
 const oracledb = require('oracledb');
 const dbConfig = require('../config/dbconfig.js');
 
+const TABLE_DONT_EXIST_CODE = 942;
 const CREATE_TABLE =
 `CREATE TABLE POSTAGEM 
 (
@@ -9,8 +10,7 @@ const CREATE_TABLE =
 , CRIACAO NUMBER 
 , NUMBER_UPS NUMBER 
 , NUMBER_COMENTARIOS NUMBER 
-) 
-`
+)`;
 
 async function initialize() {
   let conn;
@@ -19,29 +19,29 @@ async function initialize() {
       const pool = await oracledb.createPool(dbConfig);
 
       conn = await oracledb.getConnection();
-      const result = await conn.execute("Select * from POSTAGEM");
+      await conn.execute("Select * from POSTAGEM");
     }catch(err){
-      if(err.errorNum == 942){
+      if(err.errorNum == TABLE_DONT_EXIST_CODE){
         try{
           await conn.execute(CREATE_TABLE); 
-          console.log("Tabela POSTAGEM CRIADA")
+          console.log("Tabela POSTAGEM CRIADA");
         }catch(err){
-          console.log(err)
+          console.log(err);
         }
         
       }else{
-        console.log(err)
+        console.log(err);
       }
     }
 }
-initialize()
+initialize();
 
 module.exports.initialize = initialize;
 
 
 async function close() {
     await oracledb.getPool().close();
-}
+};
    
 module.exports.close = close;
 
@@ -77,7 +77,7 @@ function simpleExecute(statement, binds = [], opts = {}) {
         }
       }
     });
-}
+};
    
 module.exports.simpleExecute = simpleExecute;
 
@@ -113,6 +113,6 @@ function execMany(statement, binds = [], opts = {}) {
       }
     }
   });
-}
+};
  
 module.exports.execMany = execMany;

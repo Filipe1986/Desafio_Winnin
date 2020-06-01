@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var database = require('./config/database.js')
 const cron = require("node-cron");
-var serv = require("./services/services")
+var serv = require("./services/services");
 
 var api = require('./routes/api');
 
@@ -12,12 +12,12 @@ var app = express();
 
 var date = new Date();
 cron.schedule(date.getMinutes()+1 + " " + date.getHours() +" * * *", async () => {
-  console.log("Execução da Atividade Agendada")
-  var result = await serv.requisicaoPostagem('', [])
+  console.log("Execução da Atividade Agendada");
+  var result = await serv.requisicaoPostagem('', []);
   const sqlQuery = `INSERT INTO POSTAGEM (TITULO, AUTOR, CRIACAO,  NUMBER_UPS,  NUMBER_COMENTARIOS ) 
                     VALUES ( :TITULO, :AUTOR, :CRIACAO, :NUMBER_UPS, :NUMBER_COMENTARIOS)`;
 
-  await database.execMany(sqlQuery, result)
+  await database.execMany(sqlQuery, result);
   console.log("Atividade Agendada Finalizada")
   
   
